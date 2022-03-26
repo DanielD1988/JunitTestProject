@@ -274,6 +274,34 @@ public class DinelliDanielTestTask1 {
         BigDecimal result =  rate.calculate(new Period(9,10));
         Assertions.assertEquals(expected,result);
     }
+    @Test
+    @DisplayName("Check management minimum payable is 4.00")
+    void managementReductionUnder(){
+        normalPeriods = new ArrayList<Period>() {{
+            add(0,new Period(9,11));
+        }};
+        reducedPeriods = new ArrayList<Period>() {{
+            add(0,new Period(11,13));
+        }};
+        rate = new Rate(CarParkKind.MANAGEMENT,new BigDecimal(5),new BigDecimal(3),reducedPeriods,normalPeriods);
+        BigDecimal expected = new BigDecimal(4);
+        BigDecimal result =  rate.calculate(new Period(11,12));
+        Assertions.assertEquals(expected,result);
+    }
+    @Test
+    @DisplayName("Check management minimum payable is over 4.00")
+    void managementReductionOver(){
+        normalPeriods = new ArrayList<Period>() {{
+            add(0,new Period(9,11));
+        }};
+        reducedPeriods = new ArrayList<Period>() {{
+            add(0,new Period(11,13));
+        }};
+        rate = new Rate(CarParkKind.MANAGEMENT,new BigDecimal(5),new BigDecimal(3),reducedPeriods,normalPeriods);
+        BigDecimal expected = new BigDecimal(13);
+        BigDecimal result =  rate.calculate(new Period(9,12));
+        Assertions.assertEquals(expected,result);
+    }
     @AfterEach
     void tearThis(){
         rate = null;
