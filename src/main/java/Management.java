@@ -1,8 +1,13 @@
 import java.math.BigDecimal;
 
-public class Management extends CarParkUserDecorator{
+public class Management implements RateReduction {
+
+    public Management() {
+
+    }
+    //MANAGEMENT: minimum payable is 4.00 >= 4.00
     @Override
-    public BigDecimal calculate(Period periodStay) {
-        return null;
+    public double calculateReduction(double passedAmount) {
+        return 0;
     }
 }

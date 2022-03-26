@@ -3,12 +3,17 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rate implements CalculatePayments{
+public class Rate {
     private CarParkKind kind;
     private BigDecimal hourlyNormalRate;
     private BigDecimal hourlyReducedRate;
     private ArrayList<Period> reduced = new ArrayList<>();
     private ArrayList<Period> normal = new ArrayList<>();
+
+    private int normalRateHours;
+    private int reducedRateHours;
+
+    RateReduction reduction;
 
     public Rate(CarParkKind kind, BigDecimal normalRate, BigDecimal reducedRate, ArrayList<Period> reducedPeriods
             , ArrayList<Period> normalPeriods) {
@@ -92,8 +97,9 @@ public class Rate implements CalculatePayments{
     }
 
     public BigDecimal calculate(Period periodStay) {
-        int normalRateHours = periodStay.occurences(normal);
-        int reducedRateHours = periodStay.occurences(reduced);
+        normalRateHours = periodStay.occurences(normal);
+        reducedRateHours = periodStay.occurences(reduced);
+
         return (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))).add(
                 this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
     }

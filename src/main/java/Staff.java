@@ -1,8 +1,12 @@
 import java.math.BigDecimal;
 
-public class Staff extends CarParkUserDecorator{
+public class Staff implements RateReduction {
+    public Staff(){
+
+    }
+
     @Override
-    public BigDecimal calculate(Period periodStay) {
-        return null;
+    public double calculateReduction(double passedAmount) {
+        return 0;
     }
 }
