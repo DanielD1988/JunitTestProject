@@ -125,7 +125,7 @@ public class DinelliDanielTestTask1 {
             add(1,new Period(12,15));
         }};
         rate = new Rate(CarParkKind.VISITOR,new BigDecimal(10),new BigDecimal(4),reducedPeriods,normalPeriods);
-        BigDecimal expected = new BigDecimal(20);
+        BigDecimal expected = new BigDecimal(5);
         Assertions.assertEquals(expected,rate.calculate(new Period(9,14)));
     }
     @Test
