@@ -8,6 +8,11 @@ public class Student implements RateReduction {
     //STUDENT: 25% reduction on any amount above 5.50
     @Override
     public double calculateReduction(double passedAmount) {
-        return 0;
+        if(passedAmount > 5.50){
+            double removeAmount = passedAmount - 5.50;
+            double twentyFivePercentReduction = removeAmount / 4;
+            return 5.50 + twentyFivePercentReduction;
+        }
+        return passedAmount;
     }
 }
