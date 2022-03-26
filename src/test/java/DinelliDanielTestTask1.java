@@ -246,8 +246,34 @@ public class DinelliDanielTestTask1 {
                 rate = new Rate(CarParkKind.STUDENT,new BigDecimal(2),new BigDecimal(1),reducedPeriods,normalPeriods));
         Assertions.assertEquals("The periods overlaps", exception.getMessage());
     }
-
-
+    @Test
+    @DisplayName("Check Visitor reduction over 10")
+    void visitorReductionOver(){
+        normalPeriods = new ArrayList<Period>() {{
+            add(0,new Period(9,11));
+        }};
+        reducedPeriods = new ArrayList<Period>() {{
+            add(0,new Period(11,13));
+        }};
+        rate = new Rate(CarParkKind.VISITOR,new BigDecimal(5),new BigDecimal(3),reducedPeriods,normalPeriods);
+        BigDecimal expected = new BigDecimal(3);
+        BigDecimal result =  rate.calculate(new Period(9,13));
+        Assertions.assertEquals(expected,result);
+    }
+    @Test
+    @DisplayName("Check Visitor reduction under 10")
+    void visitorReductionUnder(){
+        normalPeriods = new ArrayList<Period>() {{
+            add(0,new Period(9,11));
+        }};
+        reducedPeriods = new ArrayList<Period>() {{
+            add(0,new Period(11,13));
+        }};
+        rate = new Rate(CarParkKind.VISITOR,new BigDecimal(5),new BigDecimal(3),reducedPeriods,normalPeriods);
+        BigDecimal expected = new BigDecimal(0);
+        BigDecimal result =  rate.calculate(new Period(9,10));
+        Assertions.assertEquals(expected,result);
+    }
     @AfterEach
     void tearThis(){
         rate = null;
