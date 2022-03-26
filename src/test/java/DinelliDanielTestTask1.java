@@ -302,6 +302,34 @@ public class DinelliDanielTestTask1 {
         BigDecimal result =  rate.calculate(new Period(9,12));
         Assertions.assertEquals(expected,result);
     }
+    @Test
+    @DisplayName("Check student reduction above 5.50")
+    void studentReductionUnder(){
+        normalPeriods = new ArrayList<Period>() {{
+            add(0,new Period(9,11));
+        }};
+        reducedPeriods = new ArrayList<Period>() {{
+            add(0,new Period(11,13));
+        }};
+        rate = new Rate(CarParkKind.STUDENT,new BigDecimal(5.50),new BigDecimal(3),reducedPeriods,normalPeriods);
+        BigDecimal expected = new BigDecimal(7);
+        BigDecimal result =  rate.calculate(new Period(10,13));
+        Assertions.assertEquals(expected,result);
+    }
+    @Test
+    @DisplayName("Check student reduction is 5.50")
+    void studentReductionOver(){
+        normalPeriods = new ArrayList<Period>() {{
+            add(0,new Period(9,11));
+        }};
+        reducedPeriods = new ArrayList<Period>() {{
+            add(0,new Period(11,13));
+        }};
+        rate = new Rate(CarParkKind.STUDENT,new BigDecimal(5),new BigDecimal(0.50),reducedPeriods,normalPeriods);
+        BigDecimal expected = new BigDecimal(5.50);
+        BigDecimal result =  rate.calculate(new Period(10,12));
+        Assertions.assertEquals(expected,result);
+    }
     @AfterEach
     void tearThis(){
         rate = null;
