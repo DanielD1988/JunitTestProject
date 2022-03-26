@@ -84,7 +84,7 @@ public class DinelliDanielTestTask1 {
             add(0,new Period(10,16));
         }};
         rate = new Rate(CarParkKind.STAFF,new BigDecimal(55),new BigDecimal(50),reducedPeriods,normalPeriods);
-        BigDecimal expected = new BigDecimal(360);
+        BigDecimal expected = new BigDecimal(16);
         Assertions.assertEquals(expected,rate.calculate(new Period(5,15)));
     }
     @Test
@@ -97,7 +97,7 @@ public class DinelliDanielTestTask1 {
             add(0,new Period(10,14));
         }};
         rate = new Rate(CarParkKind.STAFF,new BigDecimal(45),new BigDecimal(40),reducedPeriods,normalPeriods);
-        BigDecimal expected = new BigDecimal(205);
+        BigDecimal expected = new BigDecimal(16);
         Assertions.assertEquals(expected,rate.calculate(new Period(9,14)));
     }
     @Test

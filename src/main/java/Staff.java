@@ -7,6 +7,9 @@ public class Staff implements RateReduction {
 
     @Override
     public double calculateReduction(double passedAmount) {
-        return 0;
+        if(passedAmount > 16){
+            return 16;
+        }
+        return passedAmount;
     }
 }
