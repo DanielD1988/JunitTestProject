@@ -12,7 +12,7 @@ public class Rate {
 
     private int normalRateHours;
     private int reducedRateHours;
-
+    private BigDecimal amountToPay;
     RateReduction reduction;
 
     public Rate(CarParkKind kind, BigDecimal normalRate, BigDecimal reducedRate, ArrayList<Period> reducedPeriods
@@ -100,7 +100,30 @@ public class Rate {
         normalRateHours = periodStay.occurences(normal);
         reducedRateHours = periodStay.occurences(reduced);
 
-        return (this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours))).add(
+
+        BigDecimal totalForStayPeriod = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours)).add(
                 this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
+
+        if(kind == CarParkKind.VISITOR){
+            reduction = new Visitor();
+            double totalToPay = reduction.calculateReduction(totalForStayPeriod.doubleValue());
+            amountToPay = new BigDecimal(totalToPay);
+        }
+        if(kind == CarParkKind.MANAGEMENT){
+            reduction = new Management();
+            double totalToPay = reduction.calculateReduction(totalForStayPeriod.doubleValue());
+            amountToPay = new BigDecimal(totalToPay);
+        }
+        if(kind == CarParkKind.STUDENT){
+            reduction = new Student();
+            double totalToPay = reduction.calculateReduction(totalForStayPeriod.doubleValue());
+            amountToPay = new BigDecimal(totalToPay);
+        }
+        if(kind == CarParkKind.STAFF){
+            reduction = new Staff();
+            double totalToPay = reduction.calculateReduction(totalForStayPeriod.doubleValue());
+            amountToPay = new BigDecimal(totalToPay);
+        }
+        return amountToPay;
     }
 }

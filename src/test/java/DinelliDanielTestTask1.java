@@ -246,6 +246,8 @@ public class DinelliDanielTestTask1 {
                 rate = new Rate(CarParkKind.STUDENT,new BigDecimal(2),new BigDecimal(1),reducedPeriods,normalPeriods));
         Assertions.assertEquals("The periods overlaps", exception.getMessage());
     }
+
+
     @AfterEach
     void tearThis(){
         rate = null;
