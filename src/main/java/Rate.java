@@ -101,31 +101,8 @@ public class Rate {
         normalRateHours = periodStay.occurences(normal);
         reducedRateHours = periodStay.occurences(reduced);
 
-
         BigDecimal totalForStayPeriod = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours)).add(
                 this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
-
-        /*if(kind == CarParkKind.VISITOR){
-            reduction = new Visitor();
-            double totalToPay = reduction.calculateReduction(totalForStayPeriod.doubleValue());
-            amountToPay = new BigDecimal(totalToPay);
-        }
-        if(kind == CarParkKind.MANAGEMENT){
-            reduction = new Management();
-            double totalToPay = reduction.calculateReduction(totalForStayPeriod.doubleValue());
-            amountToPay = new BigDecimal(totalToPay);
-        }
-        if(kind == CarParkKind.STUDENT){
-            reduction = new Student();
-            double totalToPay = reduction.calculateReduction(totalForStayPeriod.doubleValue());
-            amountToPay = new BigDecimal(totalToPay);
-        }
-        if(kind == CarParkKind.STAFF){
-            reduction = new Staff();
-            double totalToPay = reduction.calculateReduction(totalForStayPeriod.doubleValue());
-            amountToPay = new BigDecimal(totalToPay);
-        }*/
-        //return amountToPay;
         return new BigDecimal(reduction.calculateReduction(totalForStayPeriod.doubleValue()));
     }
 }
