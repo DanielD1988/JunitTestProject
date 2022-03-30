@@ -15,7 +15,7 @@ public class Rate {
     private BigDecimal amountToPay;
     RateReduction reduction;
 
-    public Rate(CarParkKind kind, BigDecimal normalRate, BigDecimal reducedRate, ArrayList<Period> reducedPeriods
+    public Rate(RateReduction reductionClass, BigDecimal normalRate, BigDecimal reducedRate, ArrayList<Period> reducedPeriods
             , ArrayList<Period> normalPeriods) {
         if (reducedPeriods == null || normalPeriods == null) {
             throw new IllegalArgumentException("periods cannot be null");
@@ -40,6 +40,7 @@ public class Rate {
         this.hourlyReducedRate = reducedRate;
         this.reduced = reducedPeriods;
         this.normal = normalPeriods;
+        reduction = reductionClass;
     }
 
     /**
@@ -104,7 +105,7 @@ public class Rate {
         BigDecimal totalForStayPeriod = this.hourlyNormalRate.multiply(BigDecimal.valueOf(normalRateHours)).add(
                 this.hourlyReducedRate.multiply(BigDecimal.valueOf(reducedRateHours)));
 
-        if(kind == CarParkKind.VISITOR){
+        /*if(kind == CarParkKind.VISITOR){
             reduction = new Visitor();
             double totalToPay = reduction.calculateReduction(totalForStayPeriod.doubleValue());
             amountToPay = new BigDecimal(totalToPay);
@@ -123,7 +124,8 @@ public class Rate {
             reduction = new Staff();
             double totalToPay = reduction.calculateReduction(totalForStayPeriod.doubleValue());
             amountToPay = new BigDecimal(totalToPay);
-        }
-        return amountToPay;
+        }*/
+        //return amountToPay;
+        return new BigDecimal(reduction.calculateReduction(totalForStayPeriod.doubleValue()));
     }
 }
